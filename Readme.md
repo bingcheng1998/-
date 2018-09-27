@@ -2,7 +2,7 @@
 
 
 
-![finger](https://ws1.sinaimg.cn/large/006tNc79ly1fvnwve8je1j30tp0dd7i0.jpg)
+<img src="https://ws1.sinaimg.cn/large/006tNc79ly1fvnwve8je1j30tp0dd7i0.jpg" width="495">
 
 
 
@@ -14,16 +14,10 @@
 
 
 
-![hand_3](https://ws4.sinaimg.cn/large/006tNc79ly1fvnx0oydu7j31kw16ke85.jpg)
+<img src="https://ws4.sinaimg.cn/large/006tNc79ly1fvnx0oydu7j31kw16ke85.jpg" width="495">
 
-![hand_1](https://ws3.sinaimg.cn/large/006tNc79ly1fvnx11tygsj31kw2424qs.jpg)
-
-
+<img src="https://ws3.sinaimg.cn/large/006tNc79ly1fvnx11tygsj31kw2424qs.jpg"  height="330">
 
 
 
-
-
-
-
-![hand_2](https://ws1.sinaimg.cn/large/006tNc79ly1fvnx17aqtlj31kw242npg.jpg)
+<img src="https://ws1.sinaimg.cn/large/006tNc79ly1fvnx17aqtlj31kw242npg.jpg"  height="330">
