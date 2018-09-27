@@ -34,7 +34,11 @@ In [mathematics](https://en.wikipedia.org/wiki/Mathematics), the **quaternions**
 
 Quaternions are generally represented in the form:
 
-a + b***i*** + c***j*** +d***k***
+<a href="https://www.codecogs.com/eqnedit.php?latex=a&space;&plus;&space;bi&space;&plus;&space;cj&space;&plus;&space;dk" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a&space;&plus;&space;bi&space;&plus;&space;cj&space;&plus;&space;dk" title="a + bi + cj + dk" /></a>
+
+
+
+
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Quaternion_2.svg/600px-Quaternion_2.svg.png" alt="quaternion" height="400">
 
