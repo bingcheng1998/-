@@ -34,9 +34,11 @@ In [mathematics](https://en.wikipedia.org/wiki/Mathematics), the **quaternions**
 
 Quaternions are generally represented in the form:
 
-${\displaystyle a+b\ \mathbf {i} +c\ \mathbf {j} +d\ \mathbf {k} }$
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Quaternion_2.svg/600px-Quaternion_2.svg.png" alt="quaternion" height="200">
+$${\displaystyle a+b\ \mathbf {i} +c\ \mathbf {j} +d\ \mathbf {k} }$$
+$$
+a + bi + cj + dk
+$$
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Quaternion_2.svg/600px-Quaternion_2.svg.png" alt="quaternion" height="400">
 
 a, b, c, and d are real numbers, and ***i***, ***j***, and ***k*** are the fundamental quaternion units, where a, b, c and d can be get from MPU6050 chip.
 
