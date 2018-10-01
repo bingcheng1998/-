@@ -12,10 +12,10 @@
 #define MUXUSED                //Muxing Around With The CD74HC4067
 
 //Choose one of these three MODES
-#define MODE_SERIAL            //Serial debug mode
+// #define MODE_SERIAL            //Serial debug mode
 //#define MODE_PROCESSING        //Processing mode without host
 // #define MODE_PROCESSING_HOST   //Processing mode with host
-// #define MODE_PROCESSING_SERIAL
+#define MODE_PROCESSING_SERIAL
 
 
 //#define WiFiHOTSPOTS                            //是否自身发送热点
@@ -26,30 +26,47 @@
 //#define TIME_COUNTER                           //Count the times of reading from all the mpu6050s from Serial
 //#define SERIAL_START                           //正式使用UDP需要注释掉这条, 仅限调试使用
 #define SerialPort 115200
-#define mpuNum 10  //mpuNum is the number of elements inside of bootPin[mpuNum]
+#define mpuNum 2  //mpuNum is the number of elements inside of bootPin[mpuNum]
 #define max_mpu_num 11
 #ifndef MUXUSED
 static int bootPin[mpuNum] = {13, 15, 14, 10, 5, 4};  //Available ports are 4 ,5, 9, 10, 12, 13, 14, 15.
 #else
 //Mux control pins
-static int s0 = 5;
-static int s1 = 4;
+static int s0 = 0;
+static int s1 = 2;
 static int s2 = 14;
 static int s3 = 12;
-static int En = 3;
+static int En = 13;
 #endif
 //Run IMU_Zero at Example-MPU6050 and you can get these numbers:
-static int M11 [6] = {-1227, -3541, 1357, 21, -67, 57}; //假的，还没测
-static int M10 [6] = {1139, 105, 1786, 54, 21, 7};
-static int M9 [6] = {-5003, 1581, 399, 94, 133, -29};
-static int M8 [6] = {-799, 1317, 1829, 157, 60, -40};
-static int M7 [6] = {1045, 1115, 1561, 3, 48, 12};
-static int M6 [6] = {-2103, 1965, 1437, 123, 29, -4};
-static int M5 [6] = {-2183, -1303, 1273, -112, 81, -1};
-static int M4 [6] = {-3139, -3599, 2903, 26, -58, -2};
-static int M3 [6] = {-1227, -3541, 1357, 21, -67, 57};
-static int M2 [6] = {-1729, -101, 1143, -156, 143, -32};
-static int M1 [6] = {-1931, -1475, 1161, -48, 52, 45};
+// static int M11 [6] = {-1227, -3541, 1357, 21, -67, 57}; //假的，还没测
+// static int M10 [6] = {1139, 105, 1786, 54, 21, 7};
+// static int M9 [6] = {-5003, 1581, 399, 94, 133, -29};
+// static int M8 [6] = {-799, 1317, 1829, 157, 60, -40};
+// static int M7 [6] = {1045, 1115, 1561, 3, 48, 12};
+// static int M6 [6] = {-2103, 1965, 1437, 123, 29, -4};
+// static int M5 [6] = {-2183, -1303, 1273, -112, 81, -1};
+// static int M4 [6] = {-3139, -3599, 2903, 26, -58, -2};
+// static int M3 [6] = {-1227, -3541, 1357, 21, -67, 57};
+// static int M2 [6] = {-1729, -101, 1143, -156, 143, -32};
+// static int M1 [6] = {-1931, -1475, 1161, -48, 52, 45};
+//-----
+static int M1 [6] = {-3966,-1285,703,-71,2,2};
+static int M2 [6] = {-4347,-1245,1615,69,-9,-9};
+static int M3 [6] = {-2413,1211,1381,92,-23,-23};
+static int M4 [6] = {-3269,-851,1993,44,-12,-12};
+static int M5 [6] = {-1843,-603,1035,48,-6,-6};
+static int M6 [6] = {-1559,-643,1080,49,-501,-501};
+static int M7 [6] = {-1634,-757,1117,50,-7,-7};
+static int M8 [6] = {-1506,-719,1187,51,-7,-7};
+static int M9 [6] = {-2343,-1032,930,135,-79,-79};
+static int M10 [6] = {-2626,-970,937,137,4,4};
+static int M11 [6] = {-2851,-349,475,129,-11,-11};
+
+
+//----
+
+
 //                                 M1   M2   M3   M4   M5   M6   M7   M8   M9   M10   M11
 // static int XGyroOffset[max_mpu_num] = {M5[3], M6[3], M3[3], M4[3], M7[3], M8[3], M9[3], M10[3], M1[3], M2[3], M11[3]};
 // static int YGyroOffset[max_mpu_num] = {M5[4], M6[4], M3[4], M4[4], M7[4], M6[4], M9[4], M10[4], M1[4], M2[4], M11[4]};
@@ -103,7 +120,7 @@ int remotePORT;
 MPU6050 mpu[mpuNum]; // default with 0x69 AD0 low will boot
 //bool mpuInitSuccess[mpuNum];
 #define LED_PIN 16
-bool blinkState = false;
+// bool blinkState = false;
 
 // MPU control/status vars
 bool dmpReady[mpuNum];  // set true if DMP init was successful
@@ -256,9 +273,8 @@ void setMux(int channel) {
   digitalWrite(En, HIGH);
   int muxChannel[16][4] = {
     {0, 0, 0, 0}, //channel 0
-    
-    {0, 1, 0, 0}, //channel 2
     {1, 0, 0, 0}, //channel 1
+    {0, 1, 0, 0}, //channel 2
     {1, 1, 0, 0}, //channel 3
     {0, 0, 1, 0}, //channel 4
     {1, 0, 1, 0}, //channel 5
@@ -283,9 +299,28 @@ void setMux(int channel) {
 #ifdef TIME_COUNTER
 int iCount = 0;
 #endif
+// ================================================================
+// ===                      ERROR HAPPEND                       ===
+// ================================================================
 
+void error_happend(String error_msg){
+  Serial.println(error_msg);
+  bool blink_t = false;
+  while (1) {
+    blink_t = !blink_t;
+    digitalWrite(LED_PIN, blink_t);
+    delay(1000);
+  }
+}
 
-
+void quick_blink(int blink_time){
+  bool blink_t = false;
+  for (int j = 0; j < blink_time*2; j++) {
+      digitalWrite(LED_PIN, blink_t);
+      blink_t = !blink_t;
+      delay(60);
+  }
+}
 
 // ================================================================
 // ===                      INITIAL SETUP                       ===
@@ -293,7 +328,7 @@ int iCount = 0;
 
 void setup() {
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
-  Wire.begin(0, 2);
+  Wire.begin(4, 5);
   Wire.setClock(400000); // 400kHz I2C clock. Comment this line if having compilation difficulties
 #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
   Fastwire::setup(400, true);
@@ -347,6 +382,7 @@ void setup() {
       dmpReady[i] = true;
       packetSize[i] = mpu[i].dmpGetFIFOPacketSize();
       bootSuccess++;
+      quick_blink(1);
     } else {
       // ERROR!
       // 1 = initial memory load failed
@@ -355,10 +391,11 @@ void setup() {
       Serial.print(F("DMP Initialization failed (code "));
       Serial.print(devStatus[i]);
       Serial.println(F(")"));
+      quick_blink(2);
     }
   }
   //————————————————————————————Test the MPU 6050 is connected successfully————————————————————————————//
-#ifdef OUTPUT_SERIALR
+// #ifdef OUTPUT_SERIALR
   Serial.print(F("["));
   for (int i = 0; i < mpuNum; ++i)
   {
@@ -377,26 +414,28 @@ void setup() {
     }
   }
   Serial.println(F("]"));
+  for (int i = 0; i < mpuNum; ++i)
+  {
+    if (!dmpReady[i] || bootSuccess != mpuNum){
+      Serial.println(String("Initialization error!\t" + String(mpuNum - bootSuccess) + " of the " + mpuNum + " MPU6050 chips are disconnected or broken"));
+      error_happend("error_msg 2");
+    }
+    // if programming failed, don't try to do anything
+  }
 
-  if (bootSuccess == mpuNum) {
+  // if (bootSuccess == mpuNum) {
     Serial.println(F("Congratulations!\tAll of the MPU6050 chips are successfully connected and work well"));
-  } else {
-    Serial.println(String("Initialization error!\t" + String(mpuNum - bootSuccess) + " of the " + mpuNum + " MPU6050 chips are disconnected or broken"));
-  }
-#endif
-  if (bootSuccess == mpuNum) {
-    for (int j = 0; j < 6; j++) {
-      blinkState = !blinkState;
-      digitalWrite(LED_PIN, blinkState);
-      delay(60);
-    }
-  } else {
-    while (1) {
-      blinkState = !blinkState;
-      digitalWrite(LED_PIN, blinkState);
-      delay(1000);
-    }
-  }
+    quick_blink(3); // blink 3 times
+//   } else {
+//     Serial.println(String("Initialization error!\t" + String(mpuNum - bootSuccess) + " of the " + mpuNum + " MPU6050 chips are disconnected or broken"));
+// //   }
+// // #endif
+//   if (bootSuccess == mpuNum) {
+//     quick_blink(3); // blink 3 times
+//   } else {
+//     error_happend("error_msg 1");
+//   }
+  
   //————————————————————-----————————init the WiFi connection-----————————————————————————————//
 #ifndef OUTPUT_SERIALR
   #ifndef MODE_PROCESSING_SERIAL
@@ -430,11 +469,6 @@ void setup() {
 
 void loop() {
 
-  for (int i = 0; i < mpuNum; ++i)
-  {
-    if (!dmpReady[i]) return;
-    // if programming failed, don't try to do anything
-  }
 
   for (int i = 0; i < mpuNum; ++i)
   {
@@ -459,7 +493,7 @@ void loop() {
 #ifdef OUTPUT_SERIALR
       Serial.print("ypr");
       Serial.print(i);
-      Serial.print(",,,");
+      Serial.print(",\t@@@,\t@@@,\t@@@");
 #endif
       // otherwise, check for DMP data ready interrupt (this should happen frequently)
     } else if (mpuIntStatus[i] & 0x02) {
@@ -481,11 +515,11 @@ void loop() {
       mpu[i].dmpGetYawPitchRoll(ypr, &q, &gravity);
       Serial.print("ypr");
       Serial.print(i);
-      Serial.print(",");
+      Serial.print(",\t");
       Serial.print(ypr[0] * 180 / M_PI);
-      Serial.print(",");
+      Serial.print(",\t");
       Serial.print(ypr[1] * 180 / M_PI);
-      Serial.print(",");
+      Serial.print(",\t");
       Serial.print(ypr[2] * 180 / M_PI);
 #endif
 
@@ -508,22 +542,42 @@ void loop() {
       Udp.endPacket();
 #endif
 #ifdef SERIAL_QUAT
-      teapotPacket_14[2] = fifoBuffer[i][0];
-      teapotPacket_14[3] = fifoBuffer[i][1];
-      teapotPacket_14[4] = fifoBuffer[i][4];
-      teapotPacket_14[5] = fifoBuffer[i][5];
-      teapotPacket_14[6] = fifoBuffer[i][8];
-      teapotPacket_14[7] = fifoBuffer[i][9];
-      teapotPacket_14[8] = fifoBuffer[i][12];
-      teapotPacket_14[9] = fifoBuffer[i][13];
-      // Serial.write(teapotPacket_14, 14);
-      if(i == 1)
-        Serial.write(teapotPacket_14, 14);
-      teapotPacket_14[11]++; // packetCount, loops at 0xFF on purpose
+      //------------- 1 ------------------
+      // teapotPacket_14[2] = fifoBuffer[i][0];
+      // teapotPacket_14[3] = fifoBuffer[i][1];
+      // teapotPacket_14[4] = fifoBuffer[i][4];
+      // teapotPacket_14[5] = fifoBuffer[i][5];
+      // teapotPacket_14[6] = fifoBuffer[i][8];
+      // teapotPacket_14[7] = fifoBuffer[i][9];
+      // teapotPacket_14[8] = fifoBuffer[i][12];
+      // teapotPacket_14[9] = fifoBuffer[i][13];
+      // // Serial.write(teapotPacket_14, 14);
+      // if(i == 1)
+      //   Serial.write(teapotPacket_14, 14);
+      // teapotPacket_14[11]++; // packetCount, loops at 0xFF on purpose
+      //-------------- end 1 -------------
+      // Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+      // display quaternion values in InvenSense Teapot demo format:
+      teapotPacket[2] = fifoBuffer[i][0];
+      teapotPacket[3] = fifoBuffer[i][1];
+      teapotPacket[4] = fifoBuffer[i][4];
+      teapotPacket[5] = fifoBuffer[i][5];
+      teapotPacket[6] = fifoBuffer[i][8];
+      teapotPacket[7] = fifoBuffer[i][9];
+      teapotPacket[8] = fifoBuffer[i][12];
+      teapotPacket[9] = fifoBuffer[i][13];
+      teapotPacket[12] = i;
+      // for (int j = 0; j < 15; j++) {
+      //   Udp.write(teapotPacket[j]);
+      // }
+      Serial.write(teapotPacket, 15);
+      teapotPacket[11]++; // packetCount, loops at 0xFF on purpose
+      // Udp.endPacket();
 #endif
       // blink LED to indicate activity
-      blinkState = !blinkState;
-      digitalWrite(LED_PIN, blinkState);
+      // blinkState = !blinkState;
+      // digitalWrite(LED_PIN, true);
+      // digitalWrite(LED_PIN, true);
 
     } else {
  #ifdef OUTPUT_SERIALR
@@ -533,7 +587,7 @@ void loop() {
 #endif
     }
  #ifdef OUTPUT_SERIALR
-    Serial.print(",");
+    Serial.print(",\t");
   #ifdef TIME_COUNTER
       iCount ++;
   #endif
