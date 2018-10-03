@@ -8,10 +8,10 @@ import toxi.processing.*;
  按S键Start
  按Q键Quit
  ----------------------------------更改以下数据----------------------------------------------*/
-int MPUNumber   = 2;//MPU6050芯片数量
+int MPUNumber   = 12;//MPU6050芯片数量
 //String ip       = "192.168.4.255"; 
 //int port        = 8266;   
-int ImageMPU    = 0;
+int ImageMPU    = 5;
 //--------------------------------------------------------------------------------
 ToxiclibsSupport gfx;
 Serial port;     
@@ -81,6 +81,7 @@ void setup() {
   //udp.log( true );        
   // udp.listen( true );
   angleTable.addColumn("millis");
+  table.addColumn("millis");
   for (int n = 0; n<MPUNumber; n++) {
 
 
@@ -424,6 +425,7 @@ void serialEvent(Serial port) {
               //println(table.getRowCount());
               //newRow.setString("name", "Lion");
               //newRow.setString("type", "Mammal");
+              newRow.setString("millis", String.valueOf(millis()));
               for (int n = 0; n<MPUNumber; n++) {
                 for (int m = 0; m<4; m++) {
                   newRow.setString(title[n][m], String.valueOf(qSave[n][m]));
