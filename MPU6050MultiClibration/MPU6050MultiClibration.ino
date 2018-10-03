@@ -37,8 +37,8 @@ and so on.
 // ================================================================
 
 //2-D8-15 -SD2-9  1-D7-13  -D6-12  5-D5-14 6-SD3-10 3-D1-5 4-D2-4 
-#define mpuNum 11
-#define current_mpu 10
+#define mpuNum 2
+#define current_mpu 1
 //Mux control pins
 static int s0 = 0;
 static int s1 = 2;
@@ -247,36 +247,38 @@ void ShowProgress()
 //打印自动保存可以直接使用的信息！
   void ShowAutoUse(int m_num){
     Serial.println();
-    Serial.print("(LowOffset)-->\tM");
+    Serial.print("(LowOffset)-->\tstatic int M");
     Serial.print(m_num);
     Serial.print(" [6] = {");
-    for (int i = iAx; i <= iGy; i++){
-        Serial.print(LowOffset[i]),
-        Serial.print(COMMA);
+    for (int i = iAx; i <= iGz; i++){
+        Serial.print(LowOffset[i]);
+        if(i != iGz)
+          Serial.print(COMMA);
         // Serial.print(HighOffset[i]);
         // Serial.print("] --> [");
         // Serial.print(LowValue[i]);
         // Serial.print(COMMA);
         // Serial.print(HighValue[i]);
-        if (i == iGy)
-          { Serial.print(LowOffset[i++]); }
+        // if (i == iGy)
+        //   { Serial.print(LowOffset[i++]); }
         // else
         //   { Serial.print("]\t"); }
     }
     Serial.println("};");
-    Serial.print("(HighOffset)-->\tM");
+    Serial.print("(HighOffset)-->\tstatic int M");
     Serial.print(m_num);
     Serial.print(" [6] = {");
-    for (int i = iAx; i <= iGy; i++){
+    for (int i = iAx; i <= iGz; i++){
         // Serial.print(LowOffset[i]),
         // Serial.print(COMMA);
         Serial.print(HighOffset[i]);
         // Serial.print("] --> [");
         // Serial.print(LowValue[i]);
-        Serial.print(COMMA);
+        if(i != iGz)
+          Serial.print(COMMA);
         // Serial.print(HighValue[i]);
-        if (i == iGy)
-          { Serial.print(HighOffset[i]++); }
+        // if (i == iGy)
+        //   { Serial.print(HighOffset[i++]); }
         // else
         //   { Serial.print("]\t"); }
     }

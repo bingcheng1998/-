@@ -230,6 +230,13 @@ void receive( byte[] data ) {
           for (int j = 0; j < 4; j++) if (q[j] >= 2) q[j] = -4 + q[j];
 int currentMPU = int(teapotPacket[12]);
 quat[currentMPU].set(q[0], q[1], q[2], q[3]);
+
+Quaternion quatZ = new Quaternion(0, 0, 0, 1);
+Quaternion quatO = quat[currentMPU];
+Quaternion quatZ2 = (quatO.multiply(quatZ)).multiply(quatO.getConjugate());
+println("quatZ2: " + quatZ2.toString());
+
+
           //print(float(Math.round((q[0])*100))/100+"\t"
           //+ float(Math.round((q[1])*100))/100+"\t"
           //+ float(Math.round((q[2])*100))/100+"\t"

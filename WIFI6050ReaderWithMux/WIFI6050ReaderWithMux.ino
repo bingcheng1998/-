@@ -27,7 +27,7 @@
 //#define SERIAL_START                           //正式使用UDP需要注释掉这条, 仅限调试使用
 #define SerialPort 115200
 #define mpuNum 2  //mpuNum is the number of elements inside of bootPin[mpuNum]
-#define max_mpu_num 11
+#define max_mpu_num 12
 #ifndef MUXUSED
 static int bootPin[mpuNum] = {13, 15, 14, 10, 5, 4};  //Available ports are 4 ,5, 9, 10, 12, 13, 14, 15.
 #else
@@ -51,17 +51,34 @@ static int En = 13;
 // static int M2 [6] = {-1729, -101, 1143, -156, 143, -32};
 // static int M1 [6] = {-1931, -1475, 1161, -48, 52, 45};
 //-----
-static int M1 [6] = {-3966,-1285,703,-71,2,2};
-static int M2 [6] = {-4347,-1245,1615,69,-9,-9};
-static int M3 [6] = {-2413,1211,1381,92,-23,-23};
-static int M4 [6] = {-3269,-851,1993,44,-12,-12};
-static int M5 [6] = {-1843,-603,1035,48,-6,-6};
-static int M6 [6] = {-1559,-643,1080,49,-501,-501};
-static int M7 [6] = {-1634,-757,1117,50,-7,-7};
-static int M8 [6] = {-1506,-719,1187,51,-7,-7};
-static int M9 [6] = {-2343,-1032,930,135,-79,-79};
-static int M10 [6] = {-2626,-970,937,137,4,4};
-static int M11 [6] = {-2851,-349,475,129,-11,-11};
+
+//---------------测试用-------------------
+
+// (LowOffset)-->  static int M0 [6] = {-1833,-2733,955,38,7,29};
+// (HighOffset)--> static int M0 [6] = {-1832,-2732,956,39,8,30};
+static int M0 [6] = {-1833,-2733,955,38,7,29};
+// (LowOffset)-->  static int M1 [6] = {739,1359,1403,-6,-80,-37};
+// (HighOffset)--> static int M1 [6] = {740,1360,1404,-5,-79,-36};
+
+static int M1 [6] = {739,1359,1403,-6,-80,-37};
+//----------------实验用------------------
+
+
+// static int M0 [6] = {-5581,-451,527,-469,85,-372};
+// static int M1 [6] = {-2591,-7395,1905,43,79,9};
+
+//---------------------------------------
+
+static int M2 [6] = {-3477,963,1223,5,-35,-48};
+static int M3 [6] = {-428,-1299,1424,-36,-136,-15};
+static int M4 [6] = {507,497,1462,108,2,18};
+static int M5 [6] = {-833,-1012,1439,128,-18,26};
+static int M6 [6] = {-1559,967,1331,44,57,-15};
+static int M7 [6] = {-5067,-179,1219,13,25,-11};
+static int M8 [6] = {-1537,915,1689,-246,-209,-1};
+static int M9 [6] = {-1451,-691,1003,240,-86,5};
+static int M10 [6] = {2437,127,1985,-63,31,-21};
+static int M11 [6] = {3281,-1459,837,-64,68,11};
 
 
 //----
@@ -71,11 +88,15 @@ static int M11 [6] = {-2851,-349,475,129,-11,-11};
 // static int XGyroOffset[max_mpu_num] = {M5[3], M6[3], M3[3], M4[3], M7[3], M8[3], M9[3], M10[3], M1[3], M2[3], M11[3]};
 // static int YGyroOffset[max_mpu_num] = {M5[4], M6[4], M3[4], M4[4], M7[4], M6[4], M9[4], M10[4], M1[4], M2[4], M11[4]};
 // static int ZGyroOffset[max_mpu_num] = {M5[5], M6[5], M3[5], M4[5], M7[5], M6[5], M9[5], M10[5], M1[5], M2[5], M11[5]};
-// static int ZAccelOffset[max_mpu_num] ={M5[2], M6[2], M3[2], M4[2], M7[2], M6[2], M9[2], M10[2], M1[2], M2[2], M11[2]};
-static int XGyroOffset[max_mpu_num] = {M5[3], M6[3], M3[3], M4[3], M7[3], M8[3], M9[3], M10[3], M1[3], M2[3], M11[3]};
-static int YGyroOffset[max_mpu_num] = {M5[4], M6[4], M3[4], M4[4], M7[4], M6[4], M9[4], M10[4], M1[4], M2[4], M11[4]};
-static int ZGyroOffset[max_mpu_num] = {M5[5], M6[5], M3[5], M4[5], M7[5], M6[5], M9[5], M10[5], M1[5], M2[5], M11[5]};
-static int ZAccelOffset[max_mpu_num] ={M5[2], M6[2], M3[2], M4[2], M7[2], M6[2], M9[2], M10[2], M1[2], M2[2], M11[2]};
+// static int ZAccelOffset[max_mpu_num] ={M5[2], M6[2], M3[2], M4[2], M7[2], M6[2], M9[2], M10[2], M1[2], M2[2], M11[2]}
+// static int XGyroOffset[max_mpu_num] = {M5[3], M6[3], M3[3], M4[3], M7[3], M8[3], M9[3], M10[3], M1[3], M2[3], M11[3], M12[3]};
+// static int YGyroOffset[max_mpu_num] = {M5[4], M6[4], M3[4], M4[4], M7[4], M6[4], M9[4], M10[4], M1[4], M2[4], M11[4], M12[4]};
+// static int ZGyroOffset[max_mpu_num] = {M5[5], M6[5], M3[5], M4[5], M7[5], M6[5], M9[5], M10[5], M1[5], M2[5], M11[5], M12[5]};
+// static int ZAccelOffset[max_mpu_num] ={M5[2], M6[2], M3[2], M4[2], M7[2], M6[2], M9[2], M10[2], M1[2], M2[2], M11[2], M12[2]};
+static int XGyroOffset[max_mpu_num] = {M0[3], M1[3], M2[3], M3[3], M4[3], M5[3], M6[3], M7[3], M8[3], M9[3], M10[3], M11[3]};
+static int YGyroOffset[max_mpu_num] = {M0[4], M1[4], M2[4], M3[4], M4[4], M5[4], M6[4], M7[4], M8[4], M9[4], M10[4], M11[4]};
+static int ZGyroOffset[max_mpu_num] = {M0[5], M1[5], M2[5], M3[5], M4[5], M5[5], M6[5], M7[5], M8[5], M9[5], M10[5], M11[5]};
+static int ZAccelOffset[max_mpu_num] ={M0[2], M1[2], M2[2], M3[2], M4[2], M5[2], M6[2], M7[2], M8[2], M9[2], M10[2], M11[2]};
 
 unsigned int localPort = 8266;                  //The port you used in processing
 const char WiFiAPPSW[] = "12345678";            // Your password of Wifi hotspots
@@ -272,6 +293,8 @@ void setMux(int channel) {
   int controlPin[] = {s0, s1, s2, s3};
   digitalWrite(En, HIGH);
   int muxChannel[16][4] = {
+    
+
     {0, 0, 0, 0}, //channel 0
     {1, 0, 0, 0}, //channel 1
     {0, 1, 0, 0}, //channel 2
@@ -282,8 +305,10 @@ void setMux(int channel) {
     {1, 1, 1, 0}, //channel 7
     {0, 0, 0, 1}, //channel 8
     {1, 0, 0, 1}, //channel 9
-    {0, 1, 0, 1}, //channel 10
+    
+   {0, 1, 0, 1}, //channel 10
     {1, 1, 0, 1}, //channel 11
+     
     {0, 0, 1, 1}, //channel 12
     {1, 0, 1, 1}, //channel 13
     {0, 1, 1, 1}, //channel 14
@@ -313,13 +338,15 @@ void error_happend(String error_msg){
   }
 }
 
-void quick_blink(int blink_time){
+void quick_blink(int blink_time, int delay_time = 60){
   bool blink_t = false;
   for (int j = 0; j < blink_time*2; j++) {
       digitalWrite(LED_PIN, blink_t);
       blink_t = !blink_t;
-      delay(60);
+      delay(delay_time);
   }
+  digitalWrite(LED_PIN, false);
+  delay(delay_time);
 }
 
 // ================================================================
@@ -329,7 +356,7 @@ void quick_blink(int blink_time){
 void setup() {
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
   Wire.begin(4, 5);
-  Wire.setClock(400000); // 400kHz I2C clock. Comment this line if having compilation difficulties
+  Wire.setClock(19200000); // 400kHz I2C clock. Comment this line if having compilation difficulties
 #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
   Fastwire::setup(400, true);
 #endif
@@ -366,7 +393,7 @@ void setup() {
 
     // verify connection
     Serial.println(F("Testing device connections..."));
-    Serial.println(mpu[i].testConnection() ? F("MPU6050 connection --------successful") : F("MPU6050 connection --------failed"));
+    Serial.println(mpu[i].testConnection() ? F("MPU6050 connection -[successful]") : F("MPU6050 connection -[failed]"));
     Serial.println(F("Initializing DMP..."));
     devStatus[i] = mpu[i].dmpInitialize();
 
@@ -382,7 +409,7 @@ void setup() {
       dmpReady[i] = true;
       packetSize[i] = mpu[i].dmpGetFIFOPacketSize();
       bootSuccess++;
-      quick_blink(1);
+      quick_blink(1,300);
     } else {
       // ERROR!
       // 1 = initial memory load failed
@@ -391,7 +418,7 @@ void setup() {
       Serial.print(F("DMP Initialization failed (code "));
       Serial.print(devStatus[i]);
       Serial.println(F(")"));
-      quick_blink(2);
+      quick_blink(3);
     }
   }
   //————————————————————————————Test the MPU 6050 is connected successfully————————————————————————————//
@@ -425,7 +452,7 @@ void setup() {
 
   // if (bootSuccess == mpuNum) {
     Serial.println(F("Congratulations!\tAll of the MPU6050 chips are successfully connected and work well"));
-    quick_blink(3); // blink 3 times
+    quick_blink(8); // blink 3 times
 //   } else {
 //     Serial.println(String("Initialization error!\t" + String(mpuNum - bootSuccess) + " of the " + mpuNum + " MPU6050 chips are disconnected or broken"));
 // //   }
