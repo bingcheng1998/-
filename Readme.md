@@ -28,7 +28,9 @@ We can get the [quaternion](https://en.wikipedia.org/wiki/Quaternion) from [MPU6
 
 The MPU-6050 is not expensive, especially given the fact that it combines both an accelerometer and a gyro.
 
-<img src="http://fritzing.org/media/fritzing-repo/projects/m/mpu-6050-board-gy-521-acelerometro-y-giroscopio/images/GY-521.png" alt="MPU6050(GY521 chip)" height="200">
+![picture of MPU6050 board GY521](https://ws3.sinaimg.cn/large/006tNbRwly1fvylv53i9oj30a60dcjsp.jpg)
+
+<img src="https://ws1.sinaimg.cn/large/006tNbRwly1fvyluzclg3j30bw0gi0tv.jpg" alt="MPU6050(GY521 chip)" height="200">
 
 ### Quaternion
 
