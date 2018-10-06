@@ -26,7 +26,7 @@
 //#define TIME_COUNTER                           //Count the times of reading from all the mpu6050s from Serial
 //#define SERIAL_START                           //正式使用UDP需要注释掉这条, 仅限调试使用
 #define SerialPort 115200
-#define mpuNum 2  //mpuNum is the number of elements inside of bootPin[mpuNum]
+#define mpuNum 12  //mpuNum is the number of elements inside of bootPin[mpuNum]
 #define max_mpu_num 12
 #ifndef MUXUSED
 static int bootPin[mpuNum] = {13, 15, 14, 10, 5, 4};  //Available ports are 4 ,5, 9, 10, 12, 13, 14, 15.
@@ -54,30 +54,33 @@ static int En = 13;
 
 //---------------测试用-------------------
 
-// (LowOffset)-->  static int M0 [6] = {-1833,-2733,955,38,7,29};
-// (HighOffset)--> static int M0 [6] = {-1832,-2732,956,39,8,30};
-static int M0 [6] = {-1833,-2733,955,38,7,29};
-// (LowOffset)-->  static int M1 [6] = {739,1359,1403,-6,-80,-37};
-// (HighOffset)--> static int M1 [6] = {740,1360,1404,-5,-79,-36};
-
-static int M1 [6] = {739,1359,1403,-6,-80,-37};
+// static int M0 [6] = {-1183,783,991,136,27,-6};
+// static int M1 [6] = {-465,1415,780,232,-60,4};
 //----------------实验用------------------
-
-
-// static int M0 [6] = {-5581,-451,527,-469,85,-372};
-// static int M1 [6] = {-2591,-7395,1905,43,79,9};
+static int M0 [6] = {-4003,77,1377,141,-35,27};
+static int M1 [6] = {93,65,1229,-674,-97,-116};
 
 //---------------------------------------
 
 static int M2 [6] = {-3477,963,1223,5,-35,-48};
-static int M3 [6] = {-428,-1299,1424,-36,-136,-15};
+// static int M3 [6] = {-428,-1299,1424,-36,-136,-15};
+static int M3 [6] = {2031,-809,1054,-128,58,26};
+
 static int M4 [6] = {507,497,1462,108,2,18};
 static int M5 [6] = {-833,-1012,1439,128,-18,26};
-static int M6 [6] = {-1559,967,1331,44,57,-15};
-static int M7 [6] = {-5067,-179,1219,13,25,-11};
+// static int M6 [6] = {-1559,967,1331,44,57,-15};
+// static int M6 [6] = {-893,-2447,1835,127,-41,77};
+static int M6 [6] = {-897,-2407,1839,125,-39,75};
+// static int M7 [6] = {-5067,-179,1219,13,25,-11};
+// static int M7 [6] = {-452,-27,1633,407,-46,-64};
+static int M7 [6] = {-477,69,1642,397,-50,-55};
+
 static int M8 [6] = {-1537,915,1689,-246,-209,-1};
 static int M9 [6] = {-1451,-691,1003,240,-86,5};
-static int M10 [6] = {2437,127,1985,-63,31,-21};
+// static int M10 [6] = {2437,127,1985,-63,31,-21};
+// static int M10 [6] = {-1641,2615,1745,-301,175,45};
+static int M10 [6] = {-1631,2629,1744,-300,176,50};
+
 static int M11 [6] = {3281,-1459,837,-64,68,11};
 
 
@@ -305,9 +308,10 @@ void setMux(int channel) {
     {1, 1, 1, 0}, //channel 7
     {0, 0, 0, 1}, //channel 8
     {1, 0, 0, 1}, //channel 9
-    
-   {0, 1, 0, 1}, //channel 10
+    {0, 1, 0, 1}, //channel 10
     {1, 1, 0, 1}, //channel 11
+   
+    
      
     {0, 0, 1, 1}, //channel 12
     {1, 0, 1, 1}, //channel 13
@@ -345,8 +349,8 @@ void quick_blink(int blink_time, int delay_time = 60){
       blink_t = !blink_t;
       delay(delay_time);
   }
-  digitalWrite(LED_PIN, false);
-  delay(delay_time);
+  // digitalWrite(LED_PIN, false);
+  // delay(delay_time);
 }
 
 // ================================================================
@@ -375,7 +379,7 @@ void setup() {
   int bootSuccess = 0;
   Serial.begin(SerialPort);
   while (!Serial);
-  delay(500);
+  // delay(500);
   Serial.println();
   for (int i = 0; i < mpuNum; i++) {
 #ifndef MUXUSED
@@ -385,7 +389,7 @@ void setup() {
 #ifdef MUXUSED
     setMux(i);
 #endif
-    delay(200);
+    // delay(200);
     // initialize device
     Serial.print(F("Initializing MPU6050 ic = "));
     Serial.println(i);
@@ -409,7 +413,7 @@ void setup() {
       dmpReady[i] = true;
       packetSize[i] = mpu[i].dmpGetFIFOPacketSize();
       bootSuccess++;
-      quick_blink(1,300);
+      quick_blink(1,10);
     } else {
       // ERROR!
       // 1 = initial memory load failed
@@ -418,7 +422,7 @@ void setup() {
       Serial.print(F("DMP Initialization failed (code "));
       Serial.print(devStatus[i]);
       Serial.println(F(")"));
-      quick_blink(3);
+      quick_blink(3,10);
     }
   }
   //————————————————————————————Test the MPU 6050 is connected successfully————————————————————————————//

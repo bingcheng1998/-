@@ -37,8 +37,8 @@ and so on.
 // ================================================================
 
 //2-D8-15 -SD2-9  1-D7-13  -D6-12  5-D5-14 6-SD3-10 3-D1-5 4-D2-4 
-#define mpuNum 2
-#define current_mpu 1
+#define mpuNum 12
+#define current_mpu 0
 //Mux control pins
 static int s0 = 0;
 static int s1 = 2;
