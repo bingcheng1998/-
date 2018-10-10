@@ -2,6 +2,7 @@
 *.zip
 Arduino_simple_test/.DS_Store
 Processing_simple_file_save/.DS_Store
-代码移植.md
+/two_board_motional_calibration/
+/代码移植.md
 
 
